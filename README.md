@@ -56,8 +56,8 @@ Content-Type: application/json
 ```
 ```json
 {
-    "email": "wiktor@abc.pl",
-    "password": "haslo123"
+    "email": "test@test.com",
+    "password": "passwd"
 }
 ```
 #### Login Response
@@ -67,9 +67,9 @@ Content-Type: application/json
 ```json
 {
   "id": "e14585c9-85ff-4f30-85c0-8d19ced5c18e",
-  "firstName": "Wiktor",
-  "lastName": "Krzyczkowski",
-  "email": "test@test.pl",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "test@test.com",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMTQ1ODVjOS04NWZmLTRmMzAtODVjMC04ZDE5Y2VkNWMxOGUiLCJqdGkiOiJmZGRlMTBjNS00Y2NiLTQ1YzAtOWQ0Mi04NWRhYjg1M2FjZTYiLCJnaXZlbl9uYW1lIjoiV2lrdG9yIiwiZmFtaWx5X25hbWUiOiJLcnp5Y3prb3dza2kiLCJhdWQiOiJCdWJiZXJCcmVha2Zhc3QiLCJleHAiOjE3MzE4NzM4NDgsImlzcyI6IkJ1YmJlckJyZWFrZmFzdCJ9.H_Emb5mAMgG_eOy9-67N4ffX_GF5NklUEOesaEGP0v8"
 }
 ```
