@@ -8,8 +8,8 @@ namespace TriviaDbGenerator
         public DbSet<Question> Question { get; set; }
 
         // Connection string do bazy SQL Server
-        static readonly string connectionString = "";
-
+        private static readonly string connectionString = 
+        "";
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
