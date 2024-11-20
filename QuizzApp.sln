@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizzApp", "QuizzApp\QuizzApp.csproj", "{88A34201-011C-44AD-9C53-247552BD8744}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaDbGenerator", "TriviaDbGenerator\TriviaDbGenerator.csproj", "{2C692706-D9F9-4EA1-8BB6-1A66FAC3B735}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88A34201-011C-44AD-9C53-247552BD8744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88A34201-011C-44AD-9C53-247552BD8744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88A34201-011C-44AD-9C53-247552BD8744}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88A34201-011C-44AD-9C53-247552BD8744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C692706-D9F9-4EA1-8BB6-1A66FAC3B735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C692706-D9F9-4EA1-8BB6-1A66FAC3B735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C692706-D9F9-4EA1-8BB6-1A66FAC3B735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C692706-D9F9-4EA1-8BB6-1A66FAC3B735}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA6D131B-384F-4A48-B3E6-31E0157C6B9E}
+	EndGlobalSection
+EndGlobal

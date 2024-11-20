@@ -1,0 +1,42 @@
+# Ignorowanie folderów wynikowych kompilacji
+*/bin/
+*/obj/
+
+# Ignorowanie folderów i plików specyficznych dla Visual Studio Code
+.vscode/
+*.suo
+*.user
+
+# Ignorowanie plików tymczasowych i danych testowych
+*.tmp
+*.bak
+*.log
+TestResults/
+*.coverage
+*.coveragexml
+*.testhost.*
+
+# Ignorowanie plików binarnych i wykonywalnych
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.pidb
+
+# Ignorowanie paczek NuGet i danych cache
+*.nupkg
+*.snupkg
+.nuget/
+*.cache/
+
+# Ignorowanie danych CI/CD i publikacji
+build/
+publish/
+
+# Ignorowanie plików systemowych i edytorów
+.DS_Store
+Thumbs.db
+
+# Ignorowanie folderów publikacji webowych (ASP.NET)
+*/wwwroot/
+
