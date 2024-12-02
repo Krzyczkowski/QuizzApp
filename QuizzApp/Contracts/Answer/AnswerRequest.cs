@@ -1,6 +1,5 @@
 namespace QuizzApp.Contracts.Answer;
 public record AnswerRequest(
     Guid QuestionId,
-    string Answer,
-    DateTime SubmittedAt
+    string Answer
 );

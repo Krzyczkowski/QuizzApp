@@ -1,5 +1,5 @@
 public record QuestionRequest(
-    string Category,
+    string? Category = null,
     string? Difficulty = null,
     string? Type = null
 );

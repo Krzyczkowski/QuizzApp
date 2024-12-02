@@ -1,0 +1,11 @@
+POST http://localhost:5001/api/question
+Content-Type: application/json
+
+{
+  "Category": "General Knowledge",
+  "Difficulty": "medium",
+  "Type": "multiple",
+  "QuestionText": "What is the capital of France?",
+  "CorrectAnswer": "Paris",
+  "IncorrectAnswers": ["London", "Berlin", "Madrid"]
+}

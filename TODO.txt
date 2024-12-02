@@ -1,0 +1,3 @@
+✅1. Dopisz AuthenticationResponse (wraz z tokenem)
+✅2. interfejsy dla service i repozytoriów
+3. serwisy, repozytoria i kontrollery

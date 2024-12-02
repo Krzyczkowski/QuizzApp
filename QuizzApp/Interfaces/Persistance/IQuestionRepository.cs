@@ -2,5 +2,6 @@ using QuizzApp.Models;
 namespace QuizzApp.Interfaces.Persistence;
 public interface IQuestionRepository
 {
-    Question? GetQuestion(string category, string difficulty, string type);
+    Question? Get(string category, string difficulty, string type);
+    Question? Add(Question question);
 }
