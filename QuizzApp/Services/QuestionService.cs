@@ -7,11 +7,11 @@ using QuizzApp.Models;
 public class QuestionService : IQuestionService
 {
     private readonly IQuestionRepository _questionRepository;
-    private readonly ICorrectAnswerRepository _correctAnswerRepository;
-    public QuestionService(IQuestionRepository questionRepository, ICorrectAnswerRepository correctAnswerRepository)
+    // private readonly ICorrectAnswerRepository _correctAnswerRepository;
+    public QuestionService(IQuestionRepository questionRepository)
     {
         _questionRepository = questionRepository;
-        _correctAnswerRepository = correctAnswerRepository;
+        // _correctAnswerRepository = correctAnswerRepository;
     }
     public ActionResult<Question> AddQuestion(AddQuestionRequest request)
     {
