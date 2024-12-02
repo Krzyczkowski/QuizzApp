@@ -1,5 +1,6 @@
 public record QuestionRequest(
-    string? Category = null,
-    string? Difficulty = null,
-    string? Type = null
+    string? Category = "random",
+    string? Difficulty = "random",
+    string? Type = "random",
+    int Take = 1
 );

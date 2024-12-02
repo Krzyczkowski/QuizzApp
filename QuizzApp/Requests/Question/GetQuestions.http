@@ -1,0 +1,6 @@
+GET http://localhost:5001/api/question
+Content-Type: application/json
+
+{
+  "take":3
+}

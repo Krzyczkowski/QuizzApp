@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using QuizzApp.Models;
 
 public interface IQuestionController{
-    ActionResult<QuestionResponse> getQuestion(QuestionRequest request);
-    IActionResult addQuestion(AddQuestionRequest request);
     ActionResult<IEnumerable<QuestionResponse>> getQuestions(QuestionRequest request);
+    IActionResult addQuestion(AddQuestionRequest request);
     IActionResult removeQuestion();
 }

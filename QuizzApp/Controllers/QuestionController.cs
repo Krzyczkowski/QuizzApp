@@ -19,14 +19,12 @@ public class QuestionController : ControllerBase,IQuestionController
     }
 
     [HttpGet]
-    public ActionResult<QuestionResponse> getQuestion(QuestionRequest request)
-    {
-        throw new NotImplementedException();
-    }
-    [HttpGet]
     public ActionResult<IEnumerable<QuestionResponse>> getQuestions(QuestionRequest request)
     {
-        throw new NotImplementedException();
+        var result =_questionService.GetQuestions(request);
+        if(result.Result is OkObjectResult)
+            return Ok(result.Result);
+        return BadRequest(result.Result);
     }
 
     [HttpDelete]
