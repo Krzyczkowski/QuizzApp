@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using QuizzApp.Interfaces.Persistence;
 using QuizzApp.Models;
 
@@ -21,18 +23,19 @@ public class QuestionRepository : IQuestionRepository
         var query = _quizzAppDbContext.Question.AsQueryable();
         if (category != "random")
             query = query.Where(q => q.Category == category);
-
         if (difficulty != "random")
             query = query.Where(q => q.Difficulty == difficulty);
-
         if (type != "random")
             query = query.Where(q => q.Type == type);
         
-
         // losowość:
         query = query.OrderBy(q => Guid.NewGuid()); 
 
         return query.Take(take).ToList();
 
+    }
+    public Question? GetById(Guid id)
+    {
+         return _quizzAppDbContext.Question.First(question=>question.Id == id);
     }
 }

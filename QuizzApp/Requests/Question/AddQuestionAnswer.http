@@ -1,0 +1,7 @@
+POST http://localhost:5001/api/question/answer
+Content-Type: application/json
+
+{
+  "QuestionId": "131CDE5A-0DCA-49D9-945A-0010CC917808",
+  "Answer":"Harry"
+}

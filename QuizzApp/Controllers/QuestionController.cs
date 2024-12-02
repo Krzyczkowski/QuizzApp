@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using QuizzApp.Contracts.Answer;
 [ApiController]
 [Route("api/question")]
 public class QuestionController : ControllerBase,IQuestionController
@@ -13,6 +14,15 @@ public class QuestionController : ControllerBase,IQuestionController
     public IActionResult addQuestion(AddQuestionRequest request)
     {
         var result =_questionService.AddQuestion(request);
+        if(result.Result is OkObjectResult)
+            return Ok(result.Result);
+        return BadRequest(result.Result);
+    }
+
+    [HttpPost("answer")]
+    public IActionResult addQuestionAnswer(AnswerRequest request)
+    {
+        var result =_questionService.AddQuestionAnswer(request);
         if(result.Result is OkObjectResult)
             return Ok(result.Result);
         return BadRequest(result.Result);

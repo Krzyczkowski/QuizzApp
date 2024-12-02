@@ -1,13 +1,17 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using QuizzApp.Contracts.Answer;
 using QuizzApp.Interfaces.Persistence;
 using QuizzApp.Models;
 
 public class QuestionService : IQuestionService
 {
     private readonly IQuestionRepository _questionRepository;
-    public QuestionService(IQuestionRepository questionRepository)
+    private readonly ICorrectAnswerRepository _correctAnswerRepository;
+    public QuestionService(IQuestionRepository questionRepository, ICorrectAnswerRepository correctAnswerRepository)
     {
         _questionRepository = questionRepository;
+        _correctAnswerRepository = correctAnswerRepository;
     }
     public ActionResult<Question> AddQuestion(AddQuestionRequest request)
     {
@@ -51,17 +55,21 @@ public class QuestionService : IQuestionService
     {
         if (request.Difficulty != "random" && request.Difficulty != "easy" && request.Difficulty != "medium" && request.Difficulty != "hard")
             return new BadRequestObjectResult("Bad difficulty type! Supporting only 'random', 'easy', 'medium', and 'hard'");
+
         if (request.Type != "random" && request.Type != "multiple" && request.Type != "boolean")
             return new BadRequestObjectResult("Bad question type! Supporting only 'boolean' and 'multiple'");
-        if(request.Take<=0 || request.Take>10){
+
+        if (request.Take <= 0 || request.Take > 10)
             return new BadRequestObjectResult("Take argument should be in range: <1,10>");
-        }
+
+
         var questions = _questionRepository.Get(request.Category!, request.Difficulty!, request.Type!, request.Take);
-        if (questions == null) 
+        if (questions == null)
             return new UnprocessableEntityObjectResult("Problem with saving Question in databse!");
-        
-        List<QuestionResponse> questionResponse= new List<QuestionResponse>();
-        foreach(var question in questions){
+
+        List<QuestionResponse> questionResponse = new List<QuestionResponse>();
+        foreach (var question in questions)
+        {
             List<string> answers = new List<string>(question.IncorrectAnswers);
             answers.Add(question.CorrectAnswer);
             questionResponse.Add(new QuestionResponse(
@@ -73,7 +81,41 @@ public class QuestionService : IQuestionService
                 Type: question.Type
             ));
         }
-        
+
         return new OkObjectResult(questionResponse);
+    }
+
+    public ActionResult<AnswerResponse> AddQuestionAnswer(AnswerRequest request)
+    {
+        Question? question = _questionRepository.GetById(request.QuestionId);
+        if (question is null)
+            return new UnprocessableEntityObjectResult("No Question with this id!");
+
+        AnswerResponse answerResponse = null!;
+        if (question.CorrectAnswer == request.Answer)
+        {
+            int points = 0;
+            switch (question.Difficulty)
+            {
+                case "easy":
+                    points = 1;
+                    break;
+                case "medium":
+                    points = 2;
+                    break;
+                case "hard":
+                    points = 3;
+                    break;
+                default:
+                    points=0;
+                    break;
+            }
+            
+            answerResponse = new AnswerResponse(true, question.CorrectAnswer, points);
+        }else{
+            answerResponse = new AnswerResponse(false, question.CorrectAnswer, 0);
+        }
+        
+        return new OkObjectResult(answerResponse);
     }
 }

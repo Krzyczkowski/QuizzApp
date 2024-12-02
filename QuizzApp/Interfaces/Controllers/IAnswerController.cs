@@ -1,9 +1,10 @@
 
 
 using Microsoft.AspNetCore.Mvc;
+using QuizzApp.Contracts.Answer;
 using QuizzApp.Models;
 
 public interface IAnswerController{
-    ActionResult<IEnumerable<QuestionResponse>> getAnswers(QuestionRequest request);
-    IActionResult addAnswer(AddQuestionRequest request);
+    ActionResult<AnswerResponse> getCorrectAnswers(QuestionRequest request);
+    IActionResult addAnswer(AnswerRequest request);
 }
