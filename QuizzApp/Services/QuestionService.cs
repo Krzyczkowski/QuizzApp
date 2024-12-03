@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using QuizzApp.Contracts.Answer;
@@ -7,11 +8,14 @@ using QuizzApp.Models;
 public class QuestionService : IQuestionService
 {
     private readonly IQuestionRepository _questionRepository;
-    // private readonly ICorrectAnswerRepository _correctAnswerRepository;
-    public QuestionService(IQuestionRepository questionRepository)
+    private readonly UserService _userService;
+
+    private readonly ICorrectAnswerRepository _correctAnswerRepository;
+    public QuestionService(IQuestionRepository questionRepository, UserService userService, ICorrectAnswerRepository correctAnswerRepository)
     {
         _questionRepository = questionRepository;
-        // _correctAnswerRepository = correctAnswerRepository;
+        _userService = userService;
+        _correctAnswerRepository = correctAnswerRepository;
     }
     public ActionResult<Question> AddQuestion(AddQuestionRequest request)
     {
@@ -91,31 +95,42 @@ public class QuestionService : IQuestionService
         if (question is null)
             return new UnprocessableEntityObjectResult("No Question with this id!");
 
+        User? user = _userService.GetCurrentUser();
+        if (user is null)
+            return new UnauthorizedObjectResult("There is no user in the system!");
+
         AnswerResponse answerResponse = null!;
+
         if (question.CorrectAnswer == request.Answer)
         {
             int points = 0;
-            switch (question.Difficulty)
+            points = question.Difficulty switch
             {
-                case "easy":
-                    points = 1;
-                    break;
-                case "medium":
-                    points = 2;
-                    break;
-                case "hard":
-                    points = 3;
-                    break;
-                default:
-                    points=0;
-                    break;
-            }
-            
+                "easy" => 1,
+                "medium" => 2,
+                "hard" => 3,
+                _ => 0
+            };
+
+
+            CorrectAnswer correctAnswer = new CorrectAnswer(
+                id: Guid.NewGuid(),
+                category: question.Category,
+                pointsAwarded: points,
+                user: user,
+                question: question 
+    
+            );
+
+            _correctAnswerRepository.Add(correctAnswer);
+
             answerResponse = new AnswerResponse(true, question.CorrectAnswer, points);
-        }else{
+        }
+        else
+        {
             answerResponse = new AnswerResponse(false, question.CorrectAnswer, 0);
         }
-        
+
         return new OkObjectResult(answerResponse);
     }
 }

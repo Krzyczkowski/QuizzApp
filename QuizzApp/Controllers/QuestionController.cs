@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuizzApp.Contracts.Answer;
 [ApiController]
 [Route("api/question")]
+[Authorize]
 public class QuestionController : ControllerBase,IQuestionController
 {
     private readonly IQuestionService _questionService;

@@ -18,8 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();  
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IUserRepository, SqlUserRepository>();
+builder.Services.AddScoped<ICorrectAnswerRepository, CorrectAnswerRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
@@ -43,6 +46,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });
 
 var app = builder.Build();
+app.UseSwagger();  
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"); 
+    c.RoutePrefix = string.Empty; 
+});
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();  
 app.MapControllers(); 

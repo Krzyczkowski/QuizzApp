@@ -26,7 +26,6 @@ public class AuthenticationService : IAuthenticationService
             throw new Exception("Invalid password.");
         }
         
-        // generate JWT token
         var token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(
@@ -37,7 +36,6 @@ public class AuthenticationService : IAuthenticationService
     public AuthenticationResult Register(RegisterRequest registerRequest)
     {
 
-        //chceck if user exists
         if (_userRepository.GetUserByEmail(registerRequest.Email) is not null)
         {
             throw new Exception("User with given email already exists.");
@@ -47,9 +45,8 @@ public class AuthenticationService : IAuthenticationService
           registerRequest.Email,
           registerRequest.Password
           );
-          //add user
         _userRepository.Add(user);
-        // generate JWT token
+
         var token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(

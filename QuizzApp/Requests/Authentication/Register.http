@@ -2,8 +2,8 @@ POST http://localhost:5001/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "Wiktor",
-    "lastName": "Krzyczkowski",
-    "email": "test@test.pl",
+    "firstName": "Wiktor2",
+    "lastName": "Krzyczkowski2",
+    "email": "test2@test.pl",
     "password": "haslo123"
 }

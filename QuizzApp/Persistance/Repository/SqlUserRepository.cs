@@ -4,21 +4,30 @@ using QuizzApp.Models;
 namespace QuizzApp.Persistance.Repostiory;
 public class SqlUserRepository : IUserRepository
 {
-    private readonly QuizzAppDbContext _quizzAppDbContext;
+    private readonly QuizzAppDbContext _context;
 
-    
-    public SqlUserRepository(QuizzAppDbContext quizzAppDbContext)
+    public SqlUserRepository(QuizzAppDbContext context)
     {
-        _quizzAppDbContext = quizzAppDbContext;
-    }
-
-    public void Add(User user)
-    {
-        throw new NotImplementedException();
+        _context = context;
     }
 
     public User? GetUserByEmail(string email)
     {
-        throw new NotImplementedException();
+        return _context.Users.SingleOrDefault(user => user.Email == email);
+    }
+    public User? GetUserById(Guid id)
+    {
+        return _context.Users.SingleOrDefault(user => user.Id == id);
+    }
+    public void Add(User user)
+    {
+        _context.Users.Add(user);
+        _context.SaveChanges();
+    }
+    public Dictionary<string,int> GetUserCorrectAnswersCount(Guid userId)
+    {
+        var query = _context.CorrectAnswer.AsQueryable();
+        query = query.Where(q=>q.User.Id == userId);
+        return query.GroupBy(q=>q.Category).ToDictionary(g=>g.Key,g=>g.Count());
     }
 }
