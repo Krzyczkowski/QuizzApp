@@ -1,3 +1,4 @@
+
 ### Application based on Open Trivia Database
 
 ![](./Docs/TriviaDb.png)
@@ -41,7 +42,7 @@ Content-Type: application/json
   "firstName": "John",
   "lastName": "Smith",
   "email": "test@test.com",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmZDBlZTgwZS0yMDMxLTQ1MDUtYTZmZi03MWEwMjA3ZjkwNDAiLCJqdGkiOiIwNzE5NDI4MC01MjdjLTRjNTItOTBhYy0zNjNiOWFjZDE5YWMiLCJnaXZlbl9uYW1lIjoiV2lrdG9yIiwiZmFtaWx5X25hbWUiOiJLcnp5Y3prb3dza2kiLCJhdWQiOiJCdWJiZXJCcmVha2Zhc3QiLCJleHAiOjE3MzE4NzM2NzAsImlzcyI6IkJ1YmJlckJyZWFrZmFzdCJ9.-ccl2nU1TO_-NUGd1IQhmqLmKedRh8ybv9ZH5GF8oG0"
+  "token": "eyJhbGciOiJ(...)"
 }
 ```
 
@@ -70,7 +71,7 @@ Content-Type: application/json
   "firstName": "John",
   "lastName": "Smith",
   "email": "test@test.com",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMTQ1ODVjOS04NWZmLTRmMzAtODVjMC04ZDE5Y2VkNWMxOGUiLCJqdGkiOiJmZGRlMTBjNS00Y2NiLTQ1YzAtOWQ0Mi04NWRhYjg1M2FjZTYiLCJnaXZlbl9uYW1lIjoiV2lrdG9yIiwiZmFtaWx5X25hbWUiOiJLcnp5Y3prb3dza2kiLCJhdWQiOiJCdWJiZXJCcmVha2Zhc3QiLCJleHAiOjE3MzE4NzM4NDgsImlzcyI6IkJ1YmJlckJyZWFrZmFzdCJ9.H_Emb5mAMgG_eOy9-67N4ffX_GF5NklUEOesaEGP0v8"
+  "token": "eyJhbGciOiJ(...)"
 }
 ```
 ---
@@ -85,4 +86,114 @@ Replace <your-token> with the token received from the Login response.
 ---
 
 ## QuizzApp Api
-### Work in Progress: under development
+
+---
+
+### /api/question
+
+#### POST Request
+```json
+{
+  "category": "string",
+  "difficulty": "string",
+  "type": "string",
+  "questionText": "string",
+  "correctAnswer": "string",
+  "incorrectAnswers": ["string"]
+}
+```
+#### Response
+```json
+{
+  "status": "OK"
+}
+```
+
+#### GET Request
+```json
+{
+  "category": "string",
+  "difficulty": "string",
+  "type": "string",
+  "take": "integer"
+}
+```
+#### Response
+```json
+{
+  "questions": [
+    {
+      "id": "uuid",
+      "category": "string",
+      "difficulty": "string",
+      "questionText": "string",
+      "answers": ["string"],
+      "type": "string"
+    }
+  ]
+}
+```
+
+#### DELETE Request
+```json
+{
+  "status": "OK"
+}
+```
+
+---
+
+### /api/question/answer
+
+#### POST Request
+```json
+{
+  "questionId": "uuid",
+  "answer": "string"
+}
+```
+#### Response
+Sample Body for INCORRECT answer:
+```json
+{
+  "value": {
+    "isCorrect": false,
+    "correctAnswer": "Long Term Support",
+    "pointsAwarded": 0
+  },
+  "formatters": [],
+  "contentTypes": [],
+  "declaredType": null,
+  "statusCode": 200
+}
+```
+Sample Body for CORRECT answer:
+```json
+{
+  "value": {
+    "isCorrect": true,
+    "correctAnswer": "Long Term Support",
+    "pointsAwarded": 1
+  },
+  "formatters": [],
+  "contentTypes": [],
+  "declaredType": null,
+  "statusCode": 200
+}
+```
+---
+
+### /api/user/points
+
+#### GET Request
+sample body response:
+```json
+{
+  "Entertainment: Board Games": 1,
+  "Entertainment: Comics": 1,
+  "Entertainment: Japanese Anime & Manga": 1,
+  "General Knowledge": 1,
+  "Science: Computers": 2
+}
+```
+
